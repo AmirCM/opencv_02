@@ -7,6 +7,7 @@ if not cap.isOpened():
 cv.namedWindow('Video', cv.WINDOW_AUTOSIZE)
 i = 0
 while True:
+    start = cv.getTickCount()
     ret, frame = cap.read()
 
     if not ret:  # if frame is read correctly ret is True
@@ -21,6 +22,8 @@ while True:
     elif k == ord('s'):  # press s for save image
         cv.imwrite('screen_' + str(i) + '.jpg', frame)
         i += 1
-
+    end = cv.getTickCount()
+    time = (end - start)/cv.getTickFrequency()
+    print(f'FPS: {1/time}')
 cap.release()
 cv.destroyAllWindows()

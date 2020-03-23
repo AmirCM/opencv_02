@@ -1,5 +1,4 @@
 import cv2 as cv
-import time
 from queue import Queue
 from threading import Thread
 
@@ -34,18 +33,24 @@ class FileVideoStream:
 
     def stop(self):
         self.stopped = True
+        self.stream.release()
 
 
 cv.namedWindow('Video', cv.WINDOW_AUTOSIZE)
 video = FileVideoStream(0).start()
 
 while True:
-    start_time = time.time()
+    start = cv.getTickCount()
     frame = video.read()
     cv.imshow('Video', frame)
 
     k = cv.waitKey(1)
     if k == ord('q'):  # press q for quite
         break
-    print(f"FPS: {1//(time.time() - start_time)}")
+
+    end = cv.getTickCount()
+    time = (end - start) / cv.getTickFrequency()
+    print(f'FPS: {1 / time}')
+
+video.stop()
 cv.destroyAllWindows()
