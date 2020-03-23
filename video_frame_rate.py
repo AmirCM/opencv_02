@@ -40,12 +40,12 @@ cv.namedWindow('Video', cv.WINDOW_AUTOSIZE)
 video = FileVideoStream(0).start()
 
 while True:
-    t1 = time.time()
+    start_time = time.time()
     frame = video.read()
     cv.imshow('Video', frame)
 
     k = cv.waitKey(1)
     if k == ord('q'):  # press q for quite
         break
-    print(f"FPS: {1//(time.time() - t1)}")
+    print(f"FPS: {1//(time.time() - start_time)}")
 cv.destroyAllWindows()
