@@ -35,8 +35,11 @@ class FileVideoStream:
         self.stopped = True
         self.stream.release()
 
+
 thresh = 1
 max_value = 1
+
+
 def update(x):
     global thresh, max_value
     thresh = cv.getTrackbarPos('Thresh', 'Video')
@@ -49,7 +52,7 @@ cv.namedWindow('Video', cv.WINDOW_AUTOSIZE)
 cv.createTrackbar('Thresh', 'Video', 1, 255, update)
 cv.createTrackbar('Max', 'Video', 1, 255, update)
 
-video = FileVideoStream(0).start()
+video = FileVideoStream(1).start()
 
 while True:
     start = cv.getTickCount()
